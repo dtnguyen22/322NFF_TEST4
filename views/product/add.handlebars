@@ -1,1 +1,30 @@
-<p>add product</p>
+<div style="float:left; clear:both">
+    <h3>Add product</h3>
+    <form method="POST" action="/product/add" class="frmAddProduct">
+        <table>
+            <tr>
+                <td><label for="txtTitle">Product title</label></td>
+                <td><input type="text" name="txtTitle" id="txtTitle"></td>
+            </tr>
+            <tr>
+                <td><label for="txtPrice">Product price</label></td>
+                <td><input type="text" name="txtPrice" id="txtPrice"></td>
+            </tr>
+            <tr>
+                <td><label for="txtQuantity">Quantity on hand</label></td>
+                <td><input type="text" name="txtQuantity" id="txtQuantity"></td>
+            </tr>
+            <tr>
+                <td><label for="txtDesc">Product description</label></td>
+                <td><textarea name="txtDesc" id="txtDesc"></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="radioTax">Taxable</label></td>
+                <td>
+                    <input stype="" type="radio" name="radioTax" value="yes">Yes
+                    <input type="radio" name="radioTax" value="no">No
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
