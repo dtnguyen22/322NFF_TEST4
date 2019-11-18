@@ -1,0 +1,24 @@
+{
+  "name": "test4",
+  "version": "1.0.0",
+  "description": "web322nff",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtnguyen22/322NFF_TEST4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtnguyen22/322NFF_TEST4/issues"
+  },
+  "homepage": "https://github.com/dtnguyen22/322NFF_TEST4#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.7.11"
+  }
+}
