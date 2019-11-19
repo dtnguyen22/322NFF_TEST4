@@ -1,6 +1,9 @@
 <div>
     <h3>Edit product</h3>
-    <form method="POST" action="/product/edit/{{product.id}}/?_method=PUT" class="frmAddProduct">
+    {{#if error}}
+    <p style="color: red;">{{error}}</p>
+    {{/if}}
+    <form method="POST" action="/product/edit/{{product.id}}/?_method=PUT" class="frmEditProduct">
         <table>
             <tr>
                 <td><label for="txtTitle">Product title</label></td>

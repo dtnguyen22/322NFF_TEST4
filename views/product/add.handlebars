@@ -1,5 +1,8 @@
 <div>
     <h3>Add product</h3>
+    {{#if error}}
+    <p style="color: red;">{{error}}</p>
+    {{/if}}
     <form method="POST" action="/product/add" class="frmAddProduct">
         <table>
             <tr>

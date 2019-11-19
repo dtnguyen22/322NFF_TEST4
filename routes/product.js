@@ -21,30 +21,43 @@ router.get("/add", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-    const newProduct = {
-        title: req.body.txtTitle,
-        price: req.body.txtPrice,
-        quantity: req.body.txtQuantity,
-        desc: req.body.txtDesc,
-        taxable: req.body.radioTax
-    }
-    const product = new Product(newProduct);
-    product.save().then(() => {
-        console.log("added");
-        res.redirect("/product/list");
+    Product.findOne({ title: req.body.txtTitle }).then((prod) => {
+        if (prod == null) {
+            const newProduct = {
+                title: req.body.txtTitle,
+                price: req.body.txtPrice,
+                quantity: req.body.txtQuantity,
+                desc: req.body.txtDesc,
+                taxable: req.body.radioTax
+            }
+            const product = new Product(newProduct);
+            product.save().then(() => {
+                console.log("added");
+                res.redirect("/product/list");
+            }).catch(err => {
+                console.log(err);
+            })
+        } else {
+            error = "*** Error: Product title is duplicated ***";
+            res.render("product/add", {
+                error: error
+            })
+        }
     }).catch(err => {
-        console.log(err);
+        console.log(`Add error: ${err}`);
     })
+
 });
 
 router.get("/edit", (req, res) => {
     res.redirect("/product/list");
 });
 
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id/:err", (req, res) => {
     Product.findById(req.params.id).then((product) => {
         res.render("product/edit", {
-            product: product
+            product: product,
+            error:req.params.err
         })
     }).catch(err => {
         console.log(`edit error ${err}`);
@@ -54,16 +67,25 @@ router.get("/edit/:id", (req, res) => {
 
 router.put("/edit/:id", (req, res) => {
     Product.findById(req.params.id).then((product) => {
-        product.title=req.body.txtTitle;
-        product.desc = req.body.txtDesc;
-        product.price = req.body.txtPrice;
-        product.quantity = req.body.txtQuantity;
-        product.taxable = req.body.radioTax;
-        product.save().then(()=>{
+        if (product == null) {
             res.redirect("/product/list");
-        }).catch(err=>{
-            console.log(`edit error ${err}`);
-        })
+        } else if (product.title == req.body.txtTitle.trim()) {
+            error = "*** Error: Product title is duplicated ***";
+            res.render("/edit/" + product.id + "/Product title is duplicated", {
+                error: error
+            });
+        } else {
+            product.title = req.body.txtTitle;
+            product.desc = req.body.txtDesc;
+            product.price = req.body.txtPrice;
+            product.quantity = req.body.txtQuantity;
+            product.taxable = req.body.radioTax;
+            product.save().then(() => {
+                res.redirect("/product/list");
+            }).catch(err => {
+                console.log(`edit error ${err}`);
+            })
+        }
     }).catch(err => {
         console.log(`find id error ${err}`);
     })
