@@ -22,6 +22,7 @@ router.get("/add", (req, res) => {
 
 router.post("/add", (req, res) => {
     Product.findOne({ title: req.body.txtTitle }).then((prod) => {
+        //requirement does not ask to check for null and I have limited time
         if (prod == null) {
             const newProduct = {
                 title: req.body.txtTitle,
