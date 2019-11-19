@@ -1,6 +1,6 @@
 <div>
     <h3>Edit product</h3>
-    <form method="POST" action="/product/edit/{{product.id}}" class="frmAddProduct">
+    <form method="POST" action="/product/edit/{{product.id}}/?_method=PUT" class="frmAddProduct">
         <table>
             <tr>
                 <td><label for="txtTitle">Product title</label></td>
@@ -22,7 +22,7 @@
                 <td><label for="radioTax">Taxable</label></td>
                 <td>
                     <input type="radio" name="radioTax" value="true" {{#if product.taxable}}checked{{/if}}>Yes
-                    <input type="radio" name="radioTax" value="false" {{#if product.taxable}}checked{{/if}}>No
+                    <input type="radio" name="radioTax" value="false" {{#unless product.taxable}}checked{{/unless}}>No
                 </td>
             </tr>
             <tr>

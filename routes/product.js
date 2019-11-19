@@ -7,11 +7,11 @@ router.get("/", (req, res) => {
 });
 
 router.get("/list", (req, res) => {
-    Product.find().then((products)=>{
-        res.render("product/list",{
-            product_list:products
+    Product.find().then((products) => {
+        res.render("product/list", {
+            product_list: products
         });
-    }).catch(err=>{
+    }).catch(err => {
         console.log(`Error: ${err}`);
     })
 });
@@ -32,23 +32,45 @@ router.post("/add", (req, res) => {
     product.save().then(() => {
         console.log("added");
         res.redirect("/product/list");
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
     })
 });
 
-router.get("/edit/:id", (req, res) => {
-    if(req.params.id){
-        Product.findById(req.params.id).then((product)=>{
-            res.render("product/edit",{
-                product:product
-            })
-        })
-    }else{
-        res.redirect("/product/list");
-    }
-
+router.get("/edit", (req, res) => {
+    res.redirect("/product/list");
 });
+
+router.get("/edit/:id", (req, res) => {
+    Product.findById(req.params.id).then((product) => {
+        res.render("product/edit", {
+            product: product
+        })
+    }).catch(err => {
+        console.log(`edit error ${err}`);
+        res.redirect("/product/list");
+    })
+});
+
+router.put("/edit/:id", (req, res) => {
+    Product.findById(req.params.id).then((product) => {
+        product.title=req.body.txtTitle;
+        product.desc = req.body.txtDesc;
+        product.price = req.body.txtPrice;
+        product.quantity = req.body.txtQuantity;
+        product.taxable = req.body.radioTax;
+        product.save().then(()=>{
+            res.redirect("/product/list");
+        }).catch(err=>{
+            console.log(`edit error ${err}`);
+        })
+    }).catch(err => {
+        console.log(`find id error ${err}`);
+    })
+});
+
+
+
 
 
 module.exports = router;
