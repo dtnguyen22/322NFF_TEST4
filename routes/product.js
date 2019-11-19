@@ -38,10 +38,9 @@ router.post("/add", (req, res) => {
                 console.log(err);
             })
         } else {
-            error = "*** Error: Product title is duplicated ***";
-            res.render("product/add", {
-                error: error
-            })
+            error = "*** Add error: Product title is duplicated ***";
+            req.session.error = error;
+            res.redirect("/product/add");
         }
     }).catch(err => {
         console.log(`Add error: ${err}`);
@@ -53,11 +52,10 @@ router.get("/edit", (req, res) => {
     res.redirect("/product/list");
 });
 
-router.get("/edit/:id/:err", (req, res) => {
+router.get("/edit/:id/", (req, res) => {
     Product.findById(req.params.id).then((product) => {
         res.render("product/edit", {
-            product: product,
-            error:req.params.err
+            product: product
         })
     }).catch(err => {
         console.log(`edit error ${err}`);
@@ -70,10 +68,9 @@ router.put("/edit/:id", (req, res) => {
         if (product == null) {
             res.redirect("/product/list");
         } else if (product.title == req.body.txtTitle.trim()) {
-            error = "*** Error: Product title is duplicated ***";
-            res.render("/edit/" + product.id + "/Product title is duplicated", {
-                error: error
-            });
+            error = "*** Edit error: Product title is duplicated ***";
+            req.session.error = error;
+            res.redirect("/product/edit/" + req.params.id);
         } else {
             product.title = req.body.txtTitle;
             product.desc = req.body.txtDesc;

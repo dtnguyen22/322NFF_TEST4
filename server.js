@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const session = require("express-session");
 
 //config 
 require("dotenv").config({path:'./config/key.env'});
@@ -16,6 +17,12 @@ const server = express();
 
 
 server.use(express.static("public"));
+server.use(session({secret:"session key"}));
+server.use((req,res,next)=>{
+    res.locals.error= req.session.error;
+    delete req.session.error;
+    next();
+});
 server.use(bodyParser.urlencoded({extended:false}));
 server.use(methodOverride('_method'));
 
