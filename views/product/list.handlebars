@@ -1,1 +1,14 @@
-<p>list product</p>
+{{#if product_list}}
+<table>
+    {{#each product_list}}
+    <tr>
+        <td>{{title}}</td>
+        <td>{{price}} </td>
+        <td>{{desc}} </td>
+
+    </tr>
+    {{/each}}
+</table>
+{{else}}
+<p>No product available</p>
+{{/if}}
