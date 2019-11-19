@@ -1,1 +1,33 @@
-<p>edit product</p>
+<div>
+    <h3>Edit product</h3>
+    <form method="POST" action="/product/edit/{{product.id}}" class="frmAddProduct">
+        <table>
+            <tr>
+                <td><label for="txtTitle">Product title</label></td>
+                <td><input type="text" name="txtTitle" id="txtTitle" value="{{product.title}}"></td>
+            </tr>
+            <tr>
+                <td><label for="txtPrice">Product price</label></td>
+                <td><input type="text" name="txtPrice" id="txtPrice" value="{{product.price}}"></td>
+            </tr>
+            <tr>
+                <td><label for="txtQuantity">Quantity on hand</label></td>
+                <td><input type="text" name="txtQuantity" id="txtQuantity" value="{{product.quantity}}"></td>
+            </tr>
+            <tr>
+                <td><label for="txtDesc">Product description</label></td>
+                <td><textarea name="txtDesc" id="txtDesc">{{product.desc}}</textarea></td>
+            </tr>
+            <tr>
+                <td><label for="radioTax">Taxable</label></td>
+                <td>
+                    <input type="radio" name="radioTax" value="true" {{#if product.taxable}}checked{{/if}}>Yes
+                    <input type="radio" name="radioTax" value="false" {{#if product.taxable}}checked{{/if}}>No
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="submit"></td>
+            </tr>
+        </table>
+    </form>
+</div>

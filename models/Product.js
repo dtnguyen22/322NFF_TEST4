@@ -20,7 +20,7 @@ const productSchema = new Schema({
         required: true
     },
     taxable: {
-        type: String,
+        type: Boolean,
         required: true
     }
 })

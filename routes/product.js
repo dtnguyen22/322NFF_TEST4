@@ -3,7 +3,7 @@ const router = express.Router();
 const Product = require("../models/Product");
 
 router.get("/", (req, res) => {
-    res.render("product/list");
+    res.redirect("/product/list");
 });
 
 router.get("/list", (req, res) => {
@@ -37,8 +37,17 @@ router.post("/add", (req, res) => {
     })
 });
 
-router.get("/edit", (req, res) => {
-    res.render("product/edit");
+router.get("/edit/:id", (req, res) => {
+    if(req.params.id){
+        Product.findById(req.params.id).then((product)=>{
+            res.render("product/edit",{
+                product:product
+            })
+        })
+    }else{
+        res.redirect("/product/list");
+    }
+
 });
 
 
